@@ -30,6 +30,8 @@ int main()
 {
   uWS::Hub h;
 
+  std::cout << "******* In Main Function ********" << std::endl;
+  
   // Create a Kalman Filter instance
   FusionEKF fusionEKF;
 
