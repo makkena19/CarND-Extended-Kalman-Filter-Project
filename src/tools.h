@@ -1,34 +1,24 @@
 #ifndef TOOLS_H_
 #define TOOLS_H_
+
 #include <vector>
 #include "Eigen/Dense"
+#include "measurement_package.h"
 
-using Eigen::MatrixXd;
-using Eigen::VectorXd;
-using namespace std;
+const double APPROX_ZERO = 0.0001;   // avoid numerical stability issues: do not compare to zero
 
-class Tools {
-public:
-  /**
-  * Constructor.
-  */
-  Tools();
+namespace Tools {
+  //  Calculate RMSE
+  Eigen::VectorXd CalculateRMSE(const std::vector<Eigen::VectorXd> &estimations, const std::vector<Eigen::VectorXd> &ground_truth);
 
-  /**
-  * Destructor.
-  */
-  virtual ~Tools();
+  // Calculate the Jacobian
+  Eigen::MatrixXd CalculateJacobian(const Eigen::VectorXd& x_state);
 
-  /**
-  * A helper method to calculate RMSE.
-  */
-  VectorXd CalculateRMSE(const vector<VectorXd> &estimations, const vector<VectorXd> &ground_truth);
+  // Convert measurement from polar to cartesian coordinates
+  void polar_to_cartesian(const MeasurementPackage& measurement_pack, double& px, double& py);
 
-  /**
-  * A helper method to calculate Jacobians.
-  */
-  MatrixXd CalculateJacobian(const VectorXd& x_state);
-
+  // Convert state from cartesian to polar coordinates
+  Eigen::VectorXd cartesian_to_polar(const Eigen::VectorXd x);
 };
 
 #endif /* TOOLS_H_ */

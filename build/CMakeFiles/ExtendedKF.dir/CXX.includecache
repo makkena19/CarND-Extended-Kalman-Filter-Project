@@ -1103,6 +1103,8 @@ kalman_filter.h
 /home/sm/carnd/CarND-Extended-Kalman-Filter-Project/src/kalman_filter.h
 iostream
 -
+tools.h
+/home/sm/carnd/CarND-Extended-Kalman-Filter-Project/src/tools.h
 
 /home/sm/carnd/CarND-Extended-Kalman-Filter-Project/src/kalman_filter.h
 Eigen/Dense
@@ -1137,4 +1139,6 @@ vector
 -
 Eigen/Dense
 /home/sm/carnd/CarND-Extended-Kalman-Filter-Project/src/Eigen/Dense
+measurement_package.h
+/home/sm/carnd/CarND-Extended-Kalman-Filter-Project/src/measurement_package.h
 

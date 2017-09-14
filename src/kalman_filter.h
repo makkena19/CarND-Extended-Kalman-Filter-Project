@@ -33,6 +33,17 @@ public:
    */
   virtual ~KalmanFilter();
 
+  // Calculates the actual estimates of x and P
+  void Estimate(const Eigen::VectorXd &z, const Eigen::VectorXd &z_pred);
+
+// Setters
+  void setx_(const Eigen::VectorXd x);
+  void SetF_(float dt);
+  void SetQ_(float dt, float noise_ax, float noise_ay);
+
+  // Get
+  Eigen::VectorXd getx_();
+
   /**
    * Init Initializes Kalman filter
    * @param x_in Initial state
@@ -52,17 +63,11 @@ public:
    */
   void Predict();
 
-  /**
-   * Updates the state by using standard Kalman Filter equations
-   * @param z The measurement at k+1
-   */
-  void Update(const Eigen::VectorXd &z);
+   // Updates the state by using standard Kalman Filter equations (for Lidar measurements)
+  void Update(const Eigen::VectorXd &z, const Eigen::MatrixXd &R, const Eigen::MatrixXd &H);
 
-  /**
-   * Updates the state by using Extended Kalman Filter equations
-   * @param z The measurement at k+1
-   */
-  void UpdateEKF(const Eigen::VectorXd &z);
+  // Updates the state by using Extended Kalman Filter equations (for Radar measurements)
+  void UpdateEKF(const Eigen::VectorXd &z, const Eigen::MatrixXd &R, const Eigen::MatrixXd &Hj);
 
 };
 

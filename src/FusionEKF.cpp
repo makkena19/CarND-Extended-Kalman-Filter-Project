@@ -3,6 +3,7 @@
 #include "Eigen/Dense"
 #include <iostream>
 
+class Q_;
 using namespace std;
 using Eigen::MatrixXd;
 using Eigen::VectorXd;
@@ -112,9 +113,11 @@ void FusionEKF::ProcessMeasurement(const MeasurementPackage &measurement_pack) {
   float dt = (measurement_pack.timestamp_ - previous_timestamp_) / 1000000.0;
   previous_timestamp_ = measurement_pack.timestamp_;
   
+   
   // Update F and Q
-  ekf_.F_(dt);
-  ekf_.Q_(dt, noise_ax, noise_ay);
+  ekf_.SetF_(dt);
+
+ ekf_.SetQ_(dt, noise_ax, noise_ay);
   
   ekf_.Predict();
 
@@ -133,7 +136,7 @@ void FusionEKF::ProcessMeasurement(const MeasurementPackage &measurement_pack) {
     ekf_.UpdateEKF(measurement_pack.raw_measurements_, R_radar_, Tools::CalculateJacobian(ekf_.getx_()));
   } else {
     // Laser updates
-    ekf_.Update(measurement_pack.raw_measurements_);
+    ekf_.Update(measurement_pack.raw_measurements_, R_laser_, H_laser_);
   }
 
   // print the output
